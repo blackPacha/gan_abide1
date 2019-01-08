@@ -145,12 +145,13 @@ def save_new_img(img_nii, outpath):
 
 if __name__ == '__main__':
     list_of_imgs_files = list(map(lambda x: "/anatpreproc/ABIDE_1/cpac_registered/" + x, os.listdir("/anatpreproc/ABIDE_1/cpac_registered")))[0:3]
-    outdir = '/anatpreproc/ABIDE_1/cpac_sampling/'
+    outdir = '/anatpreproc/ABIDE_1/cpac_sampling'
     x_size_of_filter = 16
     y_size_of_filter = 16
     z_size_of_filter = 16
 
     sub_ids = get_sub_ids_abide1(list_of_imgs_files)
+    print(sub_ids)
     affine_list = builg_affine_list(list_of_imgs_files)
     # build a list of new cut images for each original image, and put it in a list
     L = build_new_imgs(list_of_imgs_files, x_size_of_filter, y_size_of_filter, z_size_of_filter)
