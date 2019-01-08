@@ -82,7 +82,7 @@ def build_new_imgs(list_of_imgs_files, x_size_of_filter, y_size_of_filter, z_siz
         check_new_imgs_shapes(new_imgs)
     except:
         return "Error in build_new_imgs: cannot sum imgs with not the same length"
-    return [sum_imgs, new_imgs]
+    return((sum_imgs, new_imgs))
 
 
 def check_new_imgs_len(new_imgs, list_of_imgs_files):
