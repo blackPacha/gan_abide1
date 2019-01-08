@@ -65,10 +65,11 @@ def check_size_of_filter(size_of_filter):
 
 def build_new_imgs(list_of_imgs_files, x_size_of_filter, y_size_of_filter, z_size_of_filter):
     new_imgs = []
+    sum_imgs = []
     for file in list_of_imgs_files:
         img = nib.load(file).get_data()
         new_img = cut_3d_image(img, x_size_of_filter, y_size_of_filter, z_size_of_filter)
-        print(np.sum(new_img[0]))
+        sum_imgs.append(list(map(lambda x: np.sum(x), new_img)))
         new_imgs.append(new_img)
 
     # test length of new_imgs
@@ -96,12 +97,12 @@ def check_new_imgs_shapes(new_imgs_shape):
 
 
 def sum_new_img(new_img):
-    #return list(map(lambda x: np.sum(x), new_img))
-    L = []
-    for i in range(len(new_img)):
-        print(i)
-        L.append(np.sum(new_img[i]))
-    return L
+    return list(map(lambda x: np.sum(x), new_img))
+    #L = []
+    #for i in range(len(new_img)):
+    #    print(i)
+    #    L.append(np.sum(new_img[i]))
+    #return L
 
 
 def build_sum_imgs(new_imgs):
@@ -152,6 +153,6 @@ if __name__ == '__main__':
     # build a list of new cut images for each original image, and put it in a list
     new_imgs = build_new_imgs(list_of_imgs_files, x_size_of_filter, y_size_of_filter, z_size_of_filter)
     # to check if several new images can be removed (zero images)
-    sum_imgs = build_sum_imgs(new_imgs)
-    build_save_new_imgs_nifti(new_imgs, affine_list, sum_imgs, outdir, sub_ids)
+    #sum_imgs = build_sum_imgs(new_imgs)
+    #build_save_new_imgs_nifti(new_imgs, affine_list, sum_imgs, outdir, sub_ids)
 
