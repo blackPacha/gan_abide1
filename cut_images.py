@@ -131,7 +131,7 @@ def build_save_new_imgs_nifti(new_imgs, affine_list, sum_imgs, outdir, sub_ids):
         # add condition: if sum_list[i] positive ok
 
         for j, img_array in enumerate(new_imgs[i]):
-            print(sum_imgs[j])
+            print(sum_imgs)
             if sum_imgs[j] > 0:
                 img_nii = transform_into_nifti(img_array, affine)
                 outpath = outdir + "/" + sub_ids[i] + "_" + str(j) + ".nii.gz"
