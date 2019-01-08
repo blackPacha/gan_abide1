@@ -72,7 +72,6 @@ def build_new_imgs(list_of_imgs_files, x_size_of_filter, y_size_of_filter, z_siz
         img = nib.load(file).get_data()
         new_img, sum_img = cut_3d_image(img, x_size_of_filter, y_size_of_filter, z_size_of_filter)
         sum_imgs.append(sum_img)
-        print(sum_imgs)
         new_imgs.append(new_img)
 
     # test length of new_imgs
@@ -134,8 +133,7 @@ def build_save_new_imgs_nifti(new_imgs, affine_list, sum_imgs, outdir, sub_ids):
         # add condition: if sum_list[i] positive ok
 
         for j, img_array in enumerate(new_imgs[i]):
-            print(sum_imgs)
-            if sum_imgs[j] > 0:
+            if sum_imgs[i][j] > 0:
                 img_nii = transform_into_nifti(img_array, affine)
                 outpath = outdir + "/" + sub_ids[i] + "_" + str(j) + ".nii.gz"
                 save_new_img(img_nii, outpath)
@@ -158,7 +156,6 @@ if __name__ == '__main__':
     L = build_new_imgs(list_of_imgs_files, x_size_of_filter, y_size_of_filter, z_size_of_filter)
     sum_imgs = L[0]
     new_imgs = L[1]
-    print(sum_imgs)
     # to check if several new images can be removed (zero images)
     #sum_imgs = build_sum_imgs(new_imgs)
     build_save_new_imgs_nifti(new_imgs, affine_list, sum_imgs, outdir, sub_ids)
