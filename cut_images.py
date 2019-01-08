@@ -70,6 +70,7 @@ def build_new_imgs(list_of_imgs_files, x_size_of_filter, y_size_of_filter, z_siz
     sum_imgs = []
     for file in list_of_imgs_files:
         img = nib.load(file).get_data()
+        print(img)
         new_img, sum_img = cut_3d_image(img, x_size_of_filter, y_size_of_filter, z_size_of_filter)
         sum_imgs.append(sum_img)
         new_imgs.append(new_img)
