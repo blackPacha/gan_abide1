@@ -157,6 +157,7 @@ if __name__ == '__main__':
     L = build_new_imgs(list_of_imgs_files, x_size_of_filter, y_size_of_filter, z_size_of_filter)
     sum_imgs = L[0]
     new_imgs = L[1]
+    print(sum_imgs)
     # to check if several new images can be removed (zero images)
     #sum_imgs = build_sum_imgs(new_imgs)
     #build_save_new_imgs_nifti(new_imgs, affine_list, sum_imgs, outdir, sub_ids)
