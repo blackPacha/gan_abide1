@@ -82,7 +82,7 @@ def build_new_imgs(list_of_imgs_files, x_size_of_filter, y_size_of_filter, z_siz
         check_new_imgs_shapes(new_imgs)
     except:
         return "Error in build_new_imgs: cannot sum imgs with not the same length"
-    return sum_imgs, new_imgs
+    return (sum_imgs, new_imgs)
 
 
 def check_new_imgs_len(new_imgs, list_of_imgs_files):
@@ -151,7 +151,9 @@ if __name__ == '__main__':
     sub_ids = get_sub_ids_abide1(list_of_imgs_files)
     affine_list = builg_affine_list(list_of_imgs_files)
     # build a list of new cut images for each original image, and put it in a list
-    sum_imgs, new_imgs = build_new_imgs(list_of_imgs_files, x_size_of_filter, y_size_of_filter, z_size_of_filter)
+    L = build_new_imgs(list_of_imgs_files, x_size_of_filter, y_size_of_filter, z_size_of_filter)
+    sum_imgs = L[0]
+    new_imgs = L[1]
     # to check if several new images can be removed (zero images)
     #sum_imgs = build_sum_imgs(new_imgs)
     build_save_new_imgs_nifti(new_imgs, affine_list, sum_imgs, outdir, sub_ids)
