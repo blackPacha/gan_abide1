@@ -40,19 +40,21 @@ def cut_3d_image(img, x_size_of_filter, y_size_of_filter, z_size_of_filter):
     y = img.shape[1]
     z = img.shape[2]
     new_img = []
+    sum_img = []
 
     while x / x_size_of_filter > 0:
         while y / y_size_of_filter > 0:
             while z / z_size_of_filter > 0:
-                new_img.append(img[range(x - x_size_of_filter, x), :, :][:, range(y - y_size_of_filter, y), :][:, :,
-                               range(z - z_size_of_filter, z)])
+                sub_img = img[range(x - x_size_of_filter, x), :, :][:, range(y - y_size_of_filter, y), :][:, :, range(z - z_size_of_filter, z)]
+                new_img.append(sub_img)
+                sum_img.append(np.sum(sub_img))
                 z -= z_size_of_filter
             y -= y_size_of_filter
             z = img.shape[2]
         x -= x_size_of_filter
         y = img.shape[1]
 
-    return new_img
+    return (new_img, sum_img)
 
 
 def check_img_size(img):
@@ -68,8 +70,8 @@ def build_new_imgs(list_of_imgs_files, x_size_of_filter, y_size_of_filter, z_siz
     sum_imgs = []
     for file in list_of_imgs_files:
         img = nib.load(file).get_data()
-        new_img = cut_3d_image(img, x_size_of_filter, y_size_of_filter, z_size_of_filter)
-        sum_imgs.append(list(map(lambda x: np.sum(x), new_img)))
+        new_img, sum_img = cut_3d_image(img, x_size_of_filter, y_size_of_filter, z_size_of_filter)
+        sum_imgs.append(sum_img)
         new_imgs.append(new_img)
 
     # test length of new_imgs
@@ -157,5 +159,5 @@ if __name__ == '__main__':
     new_imgs = L[1]
     # to check if several new images can be removed (zero images)
     #sum_imgs = build_sum_imgs(new_imgs)
-    build_save_new_imgs_nifti(new_imgs, affine_list, sum_imgs, outdir, sub_ids)
+    #build_save_new_imgs_nifti(new_imgs, affine_list, sum_imgs, outdir, sub_ids)
 
