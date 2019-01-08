@@ -76,15 +76,15 @@ def build_new_imgs(list_of_imgs_files, x_size_of_filter, y_size_of_filter, z_siz
         new_imgs.append(new_img)
 
     # test length of new_imgs
-    try:
-        check_new_imgs_len(new_imgs, list_of_imgs_files)
-    except:
-        return "Error in build_new_imgs: missing original images in new_imgs"
-    # test all the same size to build array
-    try:
-        check_new_imgs_shapes(new_imgs)
-    except:
-        return "Error in build_new_imgs: cannot sum imgs with not the same length"
+    #try:
+    #    check_new_imgs_len(new_imgs, list_of_imgs_files)
+    #except:
+    #    return "Error in build_new_imgs: missing original images in new_imgs"
+    ## test all the same size to build array
+    #try:
+    #    check_new_imgs_shapes(new_imgs)
+    #except:
+    #    return "Error in build_new_imgs: cannot sum imgs with not the same length"
     return (sum_imgs, new_imgs)
 
 
