@@ -161,5 +161,5 @@ if __name__ == '__main__':
     print(sum_imgs)
     # to check if several new images can be removed (zero images)
     #sum_imgs = build_sum_imgs(new_imgs)
-    #build_save_new_imgs_nifti(new_imgs, affine_list, sum_imgs, outdir, sub_ids)
+    build_save_new_imgs_nifti(new_imgs, affine_list, sum_imgs, outdir, sub_ids)
 
