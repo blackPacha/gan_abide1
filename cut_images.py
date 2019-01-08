@@ -13,7 +13,7 @@ import os
 def get_sub_ids_abide1(list_of_imgs_files):
     sub_ids = []
     for el in list_of_imgs_files:
-        sub_ids.append(el.split("_")[0].split("-")[-1])
+        sub_ids.append(el.split("/")[-1].split("_")[0].split("-")[-1])
     return sub_ids
 
 
