@@ -145,7 +145,7 @@ def save_new_img(img_nii, outpath):
 
 if __name__ == '__main__':
     list_of_imgs_files = list(map(lambda x: "/anatpreproc/ABIDE_1/cpac_registered/" + x, os.listdir("/anatpreproc/ABIDE_1/cpac_registered")))[0:3]
-    outdir = '/anatpreproc/ABIDE_1/cpac_sampling'
+    outdir = '/anatpreproc/ABIDE_1/cpac_sample'
     x_size_of_filter = 16
     y_size_of_filter = 16
     z_size_of_filter = 16
