@@ -82,7 +82,7 @@ def build_new_imgs(list_of_imgs_files, x_size_of_filter, y_size_of_filter, z_siz
         check_new_imgs_shapes(new_imgs)
     except:
         return "Error in build_new_imgs: cannot sum imgs with not the same length"
-    return new_imgs
+    return (sum_imgs, new_imgs)
 
 
 def check_new_imgs_len(new_imgs, list_of_imgs_files):
@@ -96,20 +96,20 @@ def check_new_imgs_shapes(new_imgs_shape):
             assert len(new_imgs[i]) == len(new_imgs[j])
 
 
-def sum_new_img(new_img):
-    return list(map(lambda x: np.sum(x), new_img))
-    #L = []
-    #for i in range(len(new_img)):
-    #    print(i)
-    #    L.append(np.sum(new_img[i]))
-    #return L
-
-
-def build_sum_imgs(new_imgs):
-    sum_imgs = []
-    for new_img in new_imgs:
-        sum_imgs.append(sum_new_img(new_img))
-    return list(np.sum(np.array(sum_imgs), 0))
+#def sum_new_img(new_img):
+#    return list(map(lambda x: np.sum(x), new_img))
+#    #L = []
+#    #for i in range(len(new_img)):
+#    #    print(i)
+#    #    L.append(np.sum(new_img[i]))
+#    #return L
+#
+#
+#def build_sum_imgs(new_imgs):
+#    sum_imgs = []
+#    for new_img in new_imgs:
+#        sum_imgs.append(sum_new_img(new_img))
+#    return list(np.sum(np.array(sum_imgs), 0))
 
 
 def builg_affine_list(list_of_imgs_files):
@@ -151,8 +151,8 @@ if __name__ == '__main__':
     sub_ids = get_sub_ids_abide1(list_of_imgs_files)
     affine_list = builg_affine_list(list_of_imgs_files)
     # build a list of new cut images for each original image, and put it in a list
-    new_imgs = build_new_imgs(list_of_imgs_files, x_size_of_filter, y_size_of_filter, z_size_of_filter)
+    sum_imgs, new_imgs = build_new_imgs(list_of_imgs_files, x_size_of_filter, y_size_of_filter, z_size_of_filter)
     # to check if several new images can be removed (zero images)
     #sum_imgs = build_sum_imgs(new_imgs)
-    #build_save_new_imgs_nifti(new_imgs, affine_list, sum_imgs, outdir, sub_ids)
+    build_save_new_imgs_nifti(new_imgs, affine_list, sum_imgs, outdir, sub_ids)
 
