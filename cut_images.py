@@ -68,6 +68,7 @@ def build_new_imgs(list_of_imgs_files, x_size_of_filter, y_size_of_filter, z_siz
     for file in list_of_imgs_files:
         img = nib.load(file).get_data()
         new_img = cut_3d_image(img, x_size_of_filter, y_size_of_filter, z_size_of_filter)
+        print(np.sum(new_img[0]))
         new_imgs.append(new_img)
 
     # test length of new_imgs
@@ -84,6 +85,7 @@ def build_new_imgs(list_of_imgs_files, x_size_of_filter, y_size_of_filter, z_siz
 
 
 def check_new_imgs_len(new_imgs, list_of_imgs_files):
+    print(type(len(new_imgs)), type(len(list_of_imgs_files)))
     assert len(new_imgs) == len(list_of_imgs_files)
 
 
@@ -94,7 +96,12 @@ def check_new_imgs_shapes(new_imgs_shape):
 
 
 def sum_new_img(new_img):
-    return list(map(lambda x: np.sum(x), new_img))
+    #return list(map(lambda x: np.sum(x), new_img))
+    L = []
+    for i in range(len(new_img)):
+        print(i)
+        L.append(np.sum(new_img[i]))
+    return L
 
 
 def build_sum_imgs(new_imgs):
@@ -134,7 +141,7 @@ def save_new_img(img_nii, outpath):
 
 
 if __name__ == '__main__':
-    list_of_imgs_files = list(map(lambda x: "/anatpreproc/ABIDE_1/cpac_registered/" + x, os.listdir("/anatpreproc/ABIDE_1/cpac_registered")))
+    list_of_imgs_files = list(map(lambda x: "/anatpreproc/ABIDE_1/cpac_registered/" + x, os.listdir("/anatpreproc/ABIDE_1/cpac_registered")))[0:3]
     outdir = '/anatpreproc/ABIDE_1/cpac_sampling/'
     x_size_of_filter = 16
     y_size_of_filter = 16
@@ -144,7 +151,6 @@ if __name__ == '__main__':
     affine_list = builg_affine_list(list_of_imgs_files)
     # build a list of new cut images for each original image, and put it in a list
     new_imgs = build_new_imgs(list_of_imgs_files, x_size_of_filter, y_size_of_filter, z_size_of_filter)
-    assert len(new_imgs) == len(list_of_imgs_files)
     # to check if several new images can be removed (zero images)
     sum_imgs = build_sum_imgs(new_imgs)
     build_save_new_imgs_nifti(new_imgs, affine_list, sum_imgs, outdir, sub_ids)
